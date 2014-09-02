@@ -2,6 +2,7 @@
 # date: 8.21.14
 # subj: generate the data needed to experiment with elasticsearch setup
 # ruby: 2.1.1-p76
+# gemset = esearch
 
 # http://www.sitepoint.com/ruby-net-http-library/
 
@@ -14,10 +15,10 @@ require 'rest_client'
 # require 'net/http'
 # require 'uri'
 
-# url = 'http://192.168.1.3:9200/'
+# url = 'http://192.168.1.2:9200/'
 # uri = URI.parse(url)
 # puts Net::HTTP.get(uri) # GET request
-response = RestClient.get 'http://192.168.1.3:9200/'
+response = RestClient.get 'http://192.168.1.2:9200/'
 puts response.code
 puts response.headers
 puts response.to_str
@@ -81,7 +82,7 @@ doctor_list = []
   name_hash = {  "name" => full_name }
   doctor_list.push(drid)
   puts drid + " ==> " + name_hash.to_json
-  r1 = RestClient.put "http://192.168.1.3:9200/hospital/doctor/#{drid}", name_hash.to_json, :content_type => :json, :accept => :json
+  r1 = RestClient.put "http://192.168.1.2:9200/hospital/doctor/#{drid}", name_hash.to_json, :content_type => :json, :accept => :json
   puts r1.code
 end
   
@@ -122,6 +123,6 @@ puts
   
   # puts patient_record.to_json
   puts "#{id+1}. #{patient_record.patient_name} - #{patient_record.doctor} - #{patient_record.visit_date} - #{patient_record.patient_age}"
-  r2 = RestClient.put "http://192.168.1.3:9200/hospital/visit/#{id+1}", patient_record.to_json, :content_type => :json, :accept => :json
+  r2 = RestClient.put "http://192.168.1.2:9200/hospital/visit/#{id+1}", patient_record.to_json, :content_type => :json, :accept => :json
   puts r2.code
 end
